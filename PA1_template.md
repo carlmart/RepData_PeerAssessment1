@@ -366,7 +366,7 @@ weekdate2 <-  	bydate2 %>%
 
 2)  Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-<!-- Never got to the final question -->
+<!-- Never got to the final question AAAAAAAAAAAAUGH -->
 
 
 
@@ -393,11 +393,11 @@ plot(data2weekdays,type="l",
 ```
 
 ```r
-title(main="Avg Daily Steps", col.main="black", font.main=4)
+title(main="Weekday Plot", col.main="black", font.main=4)
 ```
 
 ```
-## Error in title(main = "Avg Daily Steps", col.main = "black", font.main = 4): plot.new has not been called yet
+## Error in title(main = "Weekday Plot", col.main = "black", font.main = 4): plot.new has not been called yet
 ```
 
 ```r
@@ -462,11 +462,11 @@ plot(data2weekends,type="l",
 ```
 
 ```r
-title(main="Avg Daily Steps", col.main="black", font.main=4)
+title(main="Weekend  Plot", col.main="black", font.main=4)
 ```
 
 ```
-## Error in title(main = "Avg Daily Steps", col.main = "black", font.main = 4): plot.new has not been called yet
+## Error in title(main = "Weekend  Plot", col.main = "black", font.main = 4): plot.new has not been called yet
 ```
 
 ```r
@@ -516,6 +516,3 @@ par(mfrow=c(1,1))
 
 
 
----
-Date
----

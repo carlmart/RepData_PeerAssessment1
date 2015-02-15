@@ -523,7 +523,7 @@ For this part the weekdays() function may be of some help here. Use the dataset 
 
 <p>2)  Make a panel plot containing a time series plot (i.e. type = &ldquo;l&rdquo;) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.</p>
 
-<!-- Never got to the final question -->
+<!-- Never got to the final question AAAAAAAAAAAAUGH -->
 
 <pre><code class="r">par(mfrow=c(2,1))
 plot(data2weekdays,type=&quot;l&quot;,
@@ -542,10 +542,10 @@ plot(data2weekdays,type=&quot;l&quot;,
 <pre><code>## Error in box(): plot.new has not been called yet
 </code></pre>
 
-<pre><code class="r">title(main=&quot;Avg Daily Steps&quot;, col.main=&quot;black&quot;, font.main=4)
+<pre><code class="r">title(main=&quot;Weekday Plot&quot;, col.main=&quot;black&quot;, font.main=4)
 </code></pre>
 
-<pre><code>## Error in title(main = &quot;Avg Daily Steps&quot;, col.main = &quot;black&quot;, font.main = 4): plot.new has not been called yet
+<pre><code>## Error in title(main = &quot;Weekday Plot&quot;, col.main = &quot;black&quot;, font.main = 4): plot.new has not been called yet
 </code></pre>
 
 <pre><code class="r"># Label the x and y axes 
@@ -595,10 +595,10 @@ title(xlab=&quot;Days (total=61)&quot;, col.lab=rgb(0,0,0))
 <pre><code>## Error in box(): plot.new has not been called yet
 </code></pre>
 
-<pre><code class="r">title(main=&quot;Avg Daily Steps&quot;, col.main=&quot;black&quot;, font.main=4)
+<pre><code class="r">title(main=&quot;Weekend  Plot&quot;, col.main=&quot;black&quot;, font.main=4)
 </code></pre>
 
-<pre><code>## Error in title(main = &quot;Avg Daily Steps&quot;, col.main = &quot;black&quot;, font.main = 4): plot.new has not been called yet
+<pre><code>## Error in title(main = &quot;Weekend  Plot&quot;, col.main = &quot;black&quot;, font.main = 4): plot.new has not been called yet
 </code></pre>
 
 <pre><code class="r"># Label the x and y axes 
@@ -634,10 +634,6 @@ title(xlab=&quot;Days (total=61)&quot;, col.lab=rgb(0,0,0))
 
 <pre><code class="r">par(mfrow=c(1,1))
 </code></pre>
-
-<hr/>
-
-<h2>Date</h2>
 
 </body>
 
