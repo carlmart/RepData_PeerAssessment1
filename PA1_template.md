@@ -21,7 +21,7 @@ The data for this assignment was  downloaded from the course web site:
 on date : "02/10/2015"
 Dataset: Activity monitoring data [52K]
 Variables for this dataset : steps , date, interval(identifier for 5 min. interval)
-Required libraries  :
+Some useful libraries  :
 
 
 ```r
@@ -53,20 +53,19 @@ library(dplyr)
 ```r
 library(lubridate)
 ```
+<!-- url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"  -->
+<!-- if (!file.exists("data/data.zip"))  -->
+<!--    download.file(url, destfile = "data/data.zip", mode="wb")   -->
 
-Downloading the data , using read.csv, and setting up directories:
+Reading the data in with read.csv, and setting up directories:
 
 ```r
 # url from class link
-url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 if (!file.exists("data")) 
     dir.create("data")
 
-if (!file.exists("data/data.zip")) 
-    download.file(url, destfile = "data/data.zip", mode="wb")     
-
-if (!file.exists("data/activity.csv"))   # found out later we could have just cloned it ;)			 
-    unzip("data/data.zip", exdir="data")
+if (!file.exists("data/activity.csv"))   
+    unzip("activity.zip", exdir="data")
 
 df <- read.csv("data/activity.csv",header=TRUE)
 ```
@@ -149,7 +148,8 @@ mean(bydate$dailymean,na.rm=TRUE)
 ## [1] 37.3826
 ```
 
-2. Histogram of total (maximum) number of steps taken per day.
+2. Histogram of total (maximum) number of steps taken per day. 
+<!-- some fancy plotting! -->
 
 
 ```r
@@ -158,7 +158,6 @@ maxbydate <- mdftbl %>%
                 summarise(dailymax = max(value,na.rm=TRUE))
 
 par(mar=c(4.2, 4.2, 4.0, 4.2))
-
 m <- barplot(  maxbydate$dailymax , main = "Maximum Steps Per Day " ,
             col="lightblue",
             xlab="Days",
@@ -192,22 +191,22 @@ What is the Average Daily Activity pattern?
 averaged across all days (y axis).
 
 ```r
-par(mar=c(4.2, 4.2, 4.0, 3.0),bg="grey",adj=1)  # default adj = 0,center, 1 = right
+par(mar=c(4.2, 4.2, 4.0, 3.0),bg="grey")  # default adj = 0, left = 0,center, 1 = right =1
 plot(bydate$dailymean,
     type="o",
     col="blue",
     tck=1,
     xaxt="n",
-    ylim=range(0:50),
+    ylim=range(0:80),
     ann=FALSE)
 
 box()
-#lines(bydate$dailymean, type="o", pch=22, lty=2, col="red")
 title(main="Avg Daily Steps", col.main="black", font.main=4)
-# Label the x and y axes with dark green text
-title(xlab="Days", col.lab=rgb(0,0,0))
+# Label the x and y axes 
+title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
 title(ylab="Frequency", col.lab=rgb(0,0,0))
 abline(mean(bydate$dailymean,na.rm=TRUE),0,col="red",lty=2 )
+legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",cex=0.75,title="Avg All Days",border="black",bg="white")
 axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
 ```
 
@@ -250,19 +249,28 @@ mean/median for that day, or the mean for that 5-minute interval, etc.
 ```r
 bydate2 <- mdftbl %>%
 	group_by(date) %>%
-        mutate(steps = ifelse(is.na(steps),as.integer( mean(steps, na.rm = T)),steps))
+	summarise(dailymean = mean(value,na.rm=TRUE))
 ```
 
-```
-## Error in ifelse(is.na(steps), as.integer(mean(steps, na.rm = TRUE)), steps): object 'steps' not found
-```
+
+
+3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
+   Code is shown above, below are shown the new values.
 
 ```r
 head(bydate2)
 ```
 
 ```
-## Error in head(bydate2): object 'bydate2' not found
+## Source: local data frame [6 x 2]
+## 
+##         date dailymean
+## 1 2012-10-01       NaN
+## 2 2012-10-02   0.43750
+## 3 2012-10-03  39.41667
+## 4 2012-10-04  42.06944
+## 5 2012-10-05  46.15972
+## 6 2012-10-06  53.54167
 ```
 
 ```r
@@ -270,7 +278,15 @@ tail(bydate2)
 ```
 
 ```
-## Error in tail(bydate2): object 'bydate2' not found
+## Source: local data frame [6 x 2]
+## 
+##         date dailymean
+## 1 2012-11-25  41.09028
+## 2 2012-11-26  38.75694
+## 3 2012-11-27  47.38194
+## 4 2012-11-28  35.35764
+## 5 2012-11-29  24.46875
+## 6 2012-11-30       NaN
 ```
 
 ```r
@@ -278,41 +294,155 @@ dim(bydate2)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'bydate2' not found
+## [1] 61  2
 ```
 
 
-3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
-   Original file has length(df$steps) = 17568 with names (steps , date ,interval)
+4. Make a histogram of the total (Maximum) number of steps taken each day and calculate 
+   and report the mean and median total number of steps taken per day. Do these values differ 
+   from the estimates from the first part of the assignment? 
+
+   By adding means you do not get a change in the mean and median. You do get a change in the histogram.
+   
+
+   What is the impact of inputing missing data on the estimates of the total daily number of steps?
+   You get more values exactly equal to the mean so the standard deviation is smaller.
+
+
 
 ```r
-bydate2 <- mdftbl %>%
-                group_by(date) %>%
-		mutate(steps = ifelse(is.na(steps),as.integer( mean(steps, na.rm = T)),steps))
+maxbydate2 <- mdftbl %>%
+	group_by(date) %>%
+	summarise(dailymean = mean(value))   # no need for na.rm=TRUE
+
+par(mar=c(6.2, 4.2, 4.0, 3.0),bg="grey",adj=1)  # default adj = 0,center, 1 = right
+
+m <- barplot(  maxbydate2$dailymax , 
+            col="lightblue",
+            #ylab="Max Steps"
+        )
 ```
 
 ```
-## Error in ifelse(is.na(steps), as.integer(mean(steps, na.rm = TRUE)), steps): object 'steps' not found
+## Error in barplot.default(maxbydate2$dailymax, col = "lightblue", ): 'height' must be a vector or a matrix
 ```
 
 ```r
-df2 <- dcast(bydate2,date + var1 ~ steps )
+axis(1, at=m,labels=1:61)
 ```
 
 ```
-## Error in match(x, table, nomatch = 0L): object 'bydate2' not found
+## Error in axis(1, at = m, labels = 1:61): plot.new has not been called yet
 ```
 
-4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+```r
+box()
+```
 
+```
+## Error in box(): plot.new has not been called yet
+```
+
+```r
+title(main="Avg Daily Steps with NA's filled with mean", col.main="black", font.main=4)
+```
+
+```
+## Error in title(main = "Avg Daily Steps with NA's filled with mean", col.main = "black", : plot.new has not been called yet
+```
+
+```r
+	# Label the x and y axes 
+title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
+```
+
+```
+## Error in title(xlab = "Days (total=61)", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
+```
+
+```r
+title(ylab="Frequency", col.lab=rgb(0,0,0))
+```
+
+```
+## Error in title(ylab = "Frequency", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
+```
+
+```r
+abline(mean(bydate2$dailymean,na.rm=TRUE),0,col="red",lty=2 )
+```
+
+```
+## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+```
+
+```r
+# axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
+```
+
+
+
+Mean and Median of histogram is shown below.
+
+```r
+mean(bydate2$dailymean,na.rm=T)
+```
+
+```
+## [1] 37.3826
+```
+
+```r
+median(bydate2$dailymean,na.rm=T)
+```
+
+```
+## [1] 37.37847
+```
 
 Are there differences in activity patterns between weekdays and weekends?
 For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
 
 1)  Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+<!-- bydate2  = bydate2$date + bydate2$ dailymean -->
+<!--  weekdays(as.Date("2012-10-01",format='%Y-%m-%d'))     == "Monday" -->
+<!--  weekdaze <- c("Monday","Tuesday","Wednesday","Thursday","Friday") -->
+
+
+```r
+weekdate2 <-  	bydate2 %>%
+		mutate(week = ifelse(wday(ymd(bydate2$date,label=TRUE), wday(bydate2$week) ,week)))
+```
+
+```
+## Warning: 1 failed to parse.
+```
+
+```
+## Error in as.POSIXlt.default(x, tz = tz(x)): do not know how to convert 'x' to class "POSIXlt"
+```
+
 
 2)  Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
+```r
+print("date2weekedays -- date2weekends")
+```
+
+```
+## [1] "date2weekedays -- date2weekends"
+```
+
+```r
+data2weekdays <- rnorm(100,50,10)
+data2weekends <- rnorm(100,35,5)
+
+par(mfrow=c(2,1))
+plot(data2weekdays,type="l")
+plot(data2weekends,type="l")
+```
+
+![plot of chunk chunk18](figure/chunk18-1.png) 
 
 
 
