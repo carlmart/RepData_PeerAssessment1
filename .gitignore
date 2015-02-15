@@ -6,3 +6,4 @@ data/data.zip
 Rmd-compile.sh
 libraries.R
 data/activity.zip
+compile-rmd.sh

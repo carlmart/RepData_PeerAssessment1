@@ -8,36 +8,31 @@ download date: "02/10/2015"
 ---
 
 ## Reproducible Research Peer Assessment 1
-## Downloaded Data Date "Feb. 3, 2015" 
-## Data
-
+<p>
 We can now download large amounts of data about personal movement
 using activity monitoring devices. Data remains under-utilized due to
 many two factors - data is hard to obtain and lack of statistical methods
 to process and interpret the data.
+</p>
+### The data for this assignment was  downloaded from the course web site:
+### Date : "02/10/2015"
+### Dataset: Activity monitoring data [52K]
 
-
-The data for this assignment was  downloaded from the course web site:
-on date : "02/10/2015"
-Dataset: Activity monitoring data [52K]
 Variables for this dataset : steps , date, interval(identifier for 5 min. interval)
-Some useful libraries  :
+
+First load some useful libraries  :
 
 
 ```r
 library(reshape2)
 library(ggplot2)   
+library(dplyr)
+library(lubridate)
 ```
+
 
 ```
 ## Loading required package: methods
-```
-
-```r
-library(dplyr)
-```
-
-```
 ## 
 ## Attaching package: 'dplyr'
 ## 
@@ -48,10 +43,6 @@ library(dplyr)
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union
-```
-
-```r
-library(lubridate)
 ```
 <!-- url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"  -->
 <!-- if (!file.exists("data/data.zip"))  -->
@@ -137,8 +128,8 @@ bydate <- mdftbl %>%
 ```
 
 
-1. Mean Total Number of steps taken per day :
 <!--  37.3826  removes all NaN's  -->
+1. Mean Total Number of steps taken per day :
 
 ```r
 mean(bydate$dailymean,na.rm=TRUE)     
@@ -148,8 +139,8 @@ mean(bydate$dailymean,na.rm=TRUE)
 ## [1] 37.3826
 ```
 
+<!-- some fancy plotting -->
 2. Histogram of total (maximum) number of steps taken per day. 
-<!-- some fancy plotting! -->
 
 
 ```r
@@ -311,74 +302,24 @@ dim(bydate2)
 
 
 ```r
-maxbydate2 <- mdftbl %>%
+meanbydate2 <- mdftbl %>%
 	group_by(date) %>%
 	summarise(dailymean = mean(value))   # no need for na.rm=TRUE
 
-par(mar=c(6.2, 4.2, 4.0, 3.0),bg="grey",adj=1)  # default adj = 0,center, 1 = right
+maxbydate2 <- mdftbl %>%
+        group_by(date) %>%
+        summarise(dailymax = max(value))     # no need for na.rm=TRUE
 
-m <- barplot(  maxbydate2$dailymax , 
+par(mar=c(5.2, 4.2, 4.0, 3.0),bg="grey",adj=1) 
+m <- barplot(  maxbydate2$dailymax , main = "Adjusted Maximum Steps Per Day " ,
             col="lightblue",
-            #ylab="Max Steps"
+            xlab="Days - (total = 61)",
+            ylab="Max Steps"
         )
-```
-
-```
-## Error in barplot.default(maxbydate2$dailymax, col = "lightblue", ): 'height' must be a vector or a matrix
-```
-
-```r
 axis(1, at=m,labels=1:61)
 ```
 
-```
-## Error in axis(1, at = m, labels = 1:61): plot.new has not been called yet
-```
-
-```r
-box()
-```
-
-```
-## Error in box(): plot.new has not been called yet
-```
-
-```r
-title(main="Avg Daily Steps with NA's filled with mean", col.main="black", font.main=4)
-```
-
-```
-## Error in title(main = "Avg Daily Steps with NA's filled with mean", col.main = "black", : plot.new has not been called yet
-```
-
-```r
-	# Label the x and y axes 
-title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
-```
-
-```
-## Error in title(xlab = "Days (total=61)", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
-```
-
-```r
-title(ylab="Frequency", col.lab=rgb(0,0,0))
-```
-
-```
-## Error in title(ylab = "Frequency", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
-```
-
-```r
-abline(mean(bydate2$dailymean,na.rm=TRUE),0,col="red",lty=2 )
-```
-
-```
-## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
-
-```r
-# axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
-```
+![plot of chunk chunk15](figure/chunk15-1.png) 
 
 
 
@@ -425,25 +366,152 @@ weekdate2 <-  	bydate2 %>%
 
 2)  Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-```r
-print("date2weekedays -- date2weekends")
-```
+<!-- Never got to the final question -->
 
-```
-## [1] "date2weekedays -- date2weekends"
-```
+
+
 
 ```r
-data2weekdays <- rnorm(100,50,10)
-data2weekends <- rnorm(100,35,5)
-
 par(mfrow=c(2,1))
-plot(data2weekdays,type="l")
-plot(data2weekends,type="l")
+plot(data2weekdays,type="l",
+    color="lightblue",
+    xaxt="n",
+    ylim=range(0:100),
+    ann=FALSE)
 ```
 
-![plot of chunk chunk18](figure/chunk18-1.png) 
+```
+## Error in plot(data2weekdays, type = "l", color = "lightblue", xaxt = "n", : object 'data2weekdays' not found
+```
+
+```r
+    box()
+```
+
+```
+## Error in box(): plot.new has not been called yet
+```
+
+```r
+title(main="Avg Daily Steps", col.main="black", font.main=4)
+```
+
+```
+## Error in title(main = "Avg Daily Steps", col.main = "black", font.main = 4): plot.new has not been called yet
+```
+
+```r
+# Label the x and y axes 
+title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
+```
+
+```
+## Error in title(xlab = "Days (total=61)", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
+```
+
+```r
+title(ylab="Frequency", col.lab=rgb(0,0,0))
+```
+
+```
+## Error in title(ylab = "Frequency", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
+```
+
+```r
+abline(mean(bydate$dailymean,na.rm=TRUE),0,col="red",lty=2 )
+```
+
+```
+## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+```
+
+```r
+legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",cex=0.75,title="Avg All Days",border="black",bg="white")
+```
+
+```
+## Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
+```
+
+```r
+axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
+```
+
+```
+## Error in axis(1, at = seq(1, 80, by = 20), lab = c("2012-10-01", "2012-10-14", : plot.new has not been called yet
+```
+
+```r
+plot(data2weekends,type="l",
+    color="lightblue",
+    xaxt="n",
+    ylim=range(0:100),
+    ann=FALSE)
+```
+
+```
+## Error in plot(data2weekends, type = "l", color = "lightblue", xaxt = "n", : object 'data2weekends' not found
+```
+
+```r
+    box()
+```
+
+```
+## Error in box(): plot.new has not been called yet
+```
+
+```r
+title(main="Avg Daily Steps", col.main="black", font.main=4)
+```
+
+```
+## Error in title(main = "Avg Daily Steps", col.main = "black", font.main = 4): plot.new has not been called yet
+```
+
+```r
+# Label the x and y axes 
+title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
+```
+
+```
+## Error in title(xlab = "Days (total=61)", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
+```
+
+```r
+title(ylab="Frequency", col.lab=rgb(0,0,0))
+```
+
+```
+## Error in title(ylab = "Frequency", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
+```
+
+```r
+abline(mean(bydate$dailymean,na.rm=TRUE),0,col="red",lty=2 )
+```
+
+```
+## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+```
+
+```r
+legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",cex=0.75,title="Avg All Days",border="black",bg="white")
+```
+
+```
+## Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
+```
+
+```r
+axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
+```
+
+```
+## Error in axis(1, at = seq(1, 80, by = 20), lab = c("2012-10-01", "2012-10-14", : plot.new has not been called yet
+```
 
 
 
-
+---
+Date
+---
