@@ -2,3 +2,7 @@ requirements.txt
 compile.sh
 .RData
 .Rhistory
+data/data.zip
+Rmd-compile.sh
+libraries.R
+data/activity.zip
