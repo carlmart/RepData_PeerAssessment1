@@ -378,137 +378,33 @@ plot(data2weekdays,type="l",
     xaxt="n",
     ylim=range(0:100),
     ann=FALSE)
-```
-
-```
-## Error in plot(data2weekdays, type = "l", col = "blue", xaxt = "n", ylim = range(0:100), : object 'data2weekdays' not found
-```
-
-```r
     box()
-```
 
-```
-## Error in box(): plot.new has not been called yet
-```
-
-```r
 title(main="Weekday Plot", col.main="black", font.main=4)
-```
-
-```
-## Error in title(main = "Weekday Plot", col.main = "black", font.main = 4): plot.new has not been called yet
-```
-
-```r
 # Label the x and y axes 
 title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
-```
-
-```
-## Error in title(xlab = "Days (total=61)", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
-```
-
-```r
 title(ylab="Frequency", col.lab=rgb(0,0,0))
-```
-
-```
-## Error in title(ylab = "Frequency", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
-```
-
-```r
 abline(mean(bydate$dailymean,na.rm=TRUE),0,col="red",lty=2 )
-```
-
-```
-## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
-
-```r
 legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",cex=0.75,title="Avg All Days",border="black",bg="white")
-```
-
-```
-## Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-```
-
-```r
 axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
-```
 
-```
-## Error in axis(1, at = seq(1, 80, by = 20), lab = c("2012-10-01", "2012-10-14", : plot.new has not been called yet
-```
-
-```r
 plot(data2weekends,type="l",
     col="blue",
     xaxt="n",
     ylim=range(0:100),
     ann=FALSE)
-```
-
-```
-## Error in plot(data2weekends, type = "l", col = "blue", xaxt = "n", ylim = range(0:100), : object 'data2weekends' not found
-```
-
-```r
     box()
-```
 
-```
-## Error in box(): plot.new has not been called yet
-```
-
-```r
 title(main="Weekend  Plot", col.main="black", font.main=4)
-```
-
-```
-## Error in title(main = "Weekend  Plot", col.main = "black", font.main = 4): plot.new has not been called yet
-```
-
-```r
 # Label the x and y axes 
 title(xlab="Days (total=61)", col.lab=rgb(0,0,0))
-```
-
-```
-## Error in title(xlab = "Days (total=61)", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
-```
-
-```r
 title(ylab="Frequency", col.lab=rgb(0,0,0))
-```
-
-```
-## Error in title(ylab = "Frequency", col.lab = rgb(0, 0, 0)): plot.new has not been called yet
-```
-
-```r
 abline(mean(bydate$dailymean,na.rm=TRUE),0,col="red",lty=2 )
-```
-
-```
-## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
-
-```r
 legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",cex=0.75,title="Avg All Days",border="black",bg="white")
-```
-
-```
-## Error in strwidth(legend, units = "user", cex = cex, font = text.font): plot.new has not been called yet
-```
-
-```r
 axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
 ```
 
-```
-## Error in axis(1, at = seq(1, 80, by = 20), lab = c("2012-10-01", "2012-10-14", : plot.new has not been called yet
-```
+![plot of chunk chunk18](figure/chunk18-1.png) 
 
 ```r
 par(mfrow=c(1,1))

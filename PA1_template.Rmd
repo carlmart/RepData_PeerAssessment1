@@ -235,7 +235,7 @@ weekdate2 <-  	bydate2 %>%
 
 <!-- Never got to the final question AAAAAAAAAAAAUGH -->
 
-```{r chunkX ,eval=FALSE ,echo=FALSE,results="hide"}
+```{r chunkX ,eval=TRUE ,echo=FALSE,results="hide"}
 print("date2weekedays -- date2weekends")
 set.seed(12345)
 data2weekdays <- rnorm(100,40,10)
