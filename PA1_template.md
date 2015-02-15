@@ -374,14 +374,14 @@ weekdate2 <-  	bydate2 %>%
 ```r
 par(mfrow=c(2,1))
 plot(data2weekdays,type="l",
-    color="lightblue",
+    col="blue",
     xaxt="n",
     ylim=range(0:100),
     ann=FALSE)
 ```
 
 ```
-## Error in plot(data2weekdays, type = "l", color = "lightblue", xaxt = "n", : object 'data2weekdays' not found
+## Error in plot(data2weekdays, type = "l", col = "blue", xaxt = "n", ylim = range(0:100), : object 'data2weekdays' not found
 ```
 
 ```r
@@ -443,14 +443,14 @@ axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-
 
 ```r
 plot(data2weekends,type="l",
-    color="lightblue",
+    col="blue",
     xaxt="n",
     ylim=range(0:100),
     ann=FALSE)
 ```
 
 ```
-## Error in plot(data2weekends, type = "l", color = "lightblue", xaxt = "n", : object 'data2weekends' not found
+## Error in plot(data2weekends, type = "l", col = "blue", xaxt = "n", ylim = range(0:100), : object 'data2weekends' not found
 ```
 
 ```r
@@ -508,6 +508,10 @@ axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-
 
 ```
 ## Error in axis(1, at = seq(1, 80, by = 20), lab = c("2012-10-01", "2012-10-14", : plot.new has not been called yet
+```
+
+```r
+par(mfrow=c(1,1))
 ```
 
 

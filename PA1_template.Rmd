@@ -247,7 +247,7 @@ data2weekends <- rnorm(100,35,5)
 ```{r chunk18}
 par(mfrow=c(2,1))
 plot(data2weekdays,type="l",
-    color="lightblue",
+    col="blue",
     xaxt="n",
     ylim=range(0:100),
     ann=FALSE)
@@ -262,7 +262,7 @@ legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",c
 axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
 
 plot(data2weekends,type="l",
-    color="lightblue",
+    col="blue",
     xaxt="n",
     ylim=range(0:100),
     ann=FALSE)
@@ -276,6 +276,8 @@ abline(mean(bydate$dailymean,na.rm=TRUE),0,col="red",lty=2 )
 legend("topleft",legend=mean(bydate$dailymean,na.rm=T),lty=2,col="red",bty="n",cex=0.75,title="Avg All Days",border="black",bg="white")
 axis(1, at= seq(1,80,by=20), lab=c("2012-10-01","2012-10-14","2012-11-01","2012-11-30"))
 
+
+par(mfrow=c(1,1))
 
 ```
 

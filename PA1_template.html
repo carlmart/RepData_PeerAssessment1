@@ -527,13 +527,13 @@ For this part the weekdays() function may be of some help here. Use the dataset 
 
 <pre><code class="r">par(mfrow=c(2,1))
 plot(data2weekdays,type=&quot;l&quot;,
-    color=&quot;lightblue&quot;,
+    col=&quot;blue&quot;,
     xaxt=&quot;n&quot;,
     ylim=range(0:100),
     ann=FALSE)
 </code></pre>
 
-<pre><code>## Error in plot(data2weekdays, type = &quot;l&quot;, color = &quot;lightblue&quot;, xaxt = &quot;n&quot;, : object &#39;data2weekdays&#39; not found
+<pre><code>## Error in plot(data2weekdays, type = &quot;l&quot;, col = &quot;blue&quot;, xaxt = &quot;n&quot;, ylim = range(0:100), : object &#39;data2weekdays&#39; not found
 </code></pre>
 
 <pre><code class="r">    box()
@@ -580,13 +580,13 @@ title(xlab=&quot;Days (total=61)&quot;, col.lab=rgb(0,0,0))
 </code></pre>
 
 <pre><code class="r">plot(data2weekends,type=&quot;l&quot;,
-    color=&quot;lightblue&quot;,
+    col=&quot;blue&quot;,
     xaxt=&quot;n&quot;,
     ylim=range(0:100),
     ann=FALSE)
 </code></pre>
 
-<pre><code>## Error in plot(data2weekends, type = &quot;l&quot;, color = &quot;lightblue&quot;, xaxt = &quot;n&quot;, : object &#39;data2weekends&#39; not found
+<pre><code>## Error in plot(data2weekends, type = &quot;l&quot;, col = &quot;blue&quot;, xaxt = &quot;n&quot;, ylim = range(0:100), : object &#39;data2weekends&#39; not found
 </code></pre>
 
 <pre><code class="r">    box()
@@ -630,6 +630,9 @@ title(xlab=&quot;Days (total=61)&quot;, col.lab=rgb(0,0,0))
 </code></pre>
 
 <pre><code>## Error in axis(1, at = seq(1, 80, by = 20), lab = c(&quot;2012-10-01&quot;, &quot;2012-10-14&quot;, : plot.new has not been called yet
+</code></pre>
+
+<pre><code class="r">par(mfrow=c(1,1))
 </code></pre>
 
 <hr/>
